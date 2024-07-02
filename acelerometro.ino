@@ -16,7 +16,7 @@
 // Bluetooth transmitter, used optionally
 // SoftwareSerial BTSerial(2, 3); // RX | TX
 
-Servo roll_servo;
+Servo roll_servo, roll_servo2;
 
 // global angle, gyro derived
 double gSensitivity = 65.5; // for 500 deg/s, check data sheet
@@ -40,6 +40,7 @@ void setup()
 
   // servo 
   roll_servo.attach(9, 550, 2550);
+  roll_servo2.attach(10, 550, 2550);
 
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
@@ -126,6 +127,7 @@ void loop()
   }
 
   roll_servo.write(-gx+90);
+  roll_servo2.write(-gy+90);
 
   end_time = millis();
 
@@ -156,13 +158,6 @@ void calibrate(){
   gyrXoffs = xSum / num;
   gyrYoffs = ySum / num;
   gyrZoffs = zSum / num;
-
-//  Serial.println("Calibration result:");
-//  Serial.print(gyrXoffs);
-//  Serial.print(", ");
-//  Serial.print(gyrYoffs);
-//  Serial.print(", ");
-//  Serial.println(gyrZoffs);
   
 } 
 
